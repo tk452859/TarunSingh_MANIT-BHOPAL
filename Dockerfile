@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 LABEL authors="tk452"
 # Simple build - copies source and builds in one stage
-FROM openjdk:21-jdk-slim
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
