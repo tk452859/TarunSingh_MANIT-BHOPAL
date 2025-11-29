@@ -2,18 +2,16 @@ FROM ubuntu:latest
 LABEL authors="tk452"
 # Simple build - copies source and builds in one stage
 # Multi-stage build for Java 21
-FROM maven:4.0.0-rc-4
-
+FROM openjdk:21-jdk-slim
 WORKDIR /app
+COPY target/*.jar app.jar
+ENV PORT=8080
+EXPOSE $PORT
 
-COPY . .
+# Install basic tools for health check
+RUN apt-get update && apt-get install -y curl
 
-RUN mvn clean package -DskipTests
-
-# Debug: Show what was built
-RUN find . -name "*.jar" -type f
-
-CMD ["java", "-jar", "target/bill-extractor-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=$PORT -jar app.jar"]
 
 # Run the application
 #ENTRYPOINT ["top", "-b"]
