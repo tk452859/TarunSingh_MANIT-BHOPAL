@@ -13,6 +13,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api") // ← ADD THIS LINE
 public class BillExtractionController {
+    @GetMapping("/")
+    public String root() {
+        return "Bill Extractor API - Use /api/extract-bill-data";
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Enhanced Bill Extraction API is running");
+    }
+
 
 
     @Autowired
@@ -34,10 +44,7 @@ public class BillExtractionController {
         }
     }
 
-    @GetMapping("/health")
-    public ResponseEntity<String> healthCheck() {
-        return ResponseEntity.ok("Enhanced Bill Extraction API is running");
-    }
+
 
 
 }
